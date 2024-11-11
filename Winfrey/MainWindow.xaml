@@ -1,0 +1,21 @@
+﻿<Window x:Class="Winfrey.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Winfrey" xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+            <Button Click="Button_Click" Margin="5">Run</Button>
+            <ScottPlot:WpfPlot Name="plot" Grid.Row="1"></ScottPlot:WpfPlot>
+            <DataGrid Name="grid" Grid.Row="2"></DataGrid>
+            <TextBlock Grid.Row="3"  Name="text" />
+    </Grid>
+</Window>
