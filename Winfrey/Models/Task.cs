@@ -35,6 +35,13 @@ namespace Winfrey.Models
 
         public DateTime? Mid => ES.Value + (EF.Value - ES.Value) / 2;
 
+        // for checking
+        public DateTime? p6ES { get; set; }
+        public DateTime? p6LS { get; set; }
+        public DateTime? p6EF { get; set; }
+        public DateTime? p6LF { get; set; }
+        public bool p6Critical{ get; set; }
+
         // for testing in the datagrid
         public bool IsStart { get; set; }
         public bool IsFinish { get; set; }

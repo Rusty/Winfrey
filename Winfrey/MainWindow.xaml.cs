@@ -41,12 +41,15 @@ namespace Winfrey
         public void doIt()
         {
             text.Text = "";
-            _project = new Project();
-            text.Text += "Project Created...";
-            _project.LoadProject();
+            //_project = new Project();
+            var p6 = new P6ProjectLoader();
+            _project = p6.LoadProject("4825");
+
             text.Text += "Project Loaded...";
             text.Text += $"{_project.Tasks.Count} tasks..";
             _project.Init();
+
+
             reShed();
         }
 
@@ -68,33 +71,43 @@ namespace Winfrey
                 if (task.ES.HasValue)
                 {
                     // bar
-                    ScottPlot.Plottables.Arrow markerL = new()
+                    ScottPlot.Plottables.Rectangle markerL = new()
                     {
-                        Base = new Coordinates(task.ES.Value.ToOADate(), row),
-                        Tip = new Coordinates(task.EF.Value.ToOADate(), row),
-                        ArrowLineColor = (task.isCritical)? ScottPlot.Colors.Red : ScottPlot.Colors.Blue,
-                        ArrowLineWidth = 20,
-                        //Label = task.Name
+                        X1 = task.ES.Value.ToOADate(),
+                        Y1 = row,
+                        X2 = task.EF.Value.ToOADate(), 
+                        Y2 = row + 0.5,
+                        FillColor = (task.isCritical)? ScottPlot.Colors.Red : ScottPlot.Colors.LightBlue,
                     };
                     plot.Plot.Add.Plottable(markerL);
 
-                    ScottPlot.Plottables.Arrow markerFF = new()
+                    ScottPlot.Plottables.Rectangle markerP6 = new()
                     {
-                        Base = new Coordinates(task.EF.Value.ToOADate(), row),
-                        Tip = new Coordinates(task.EF.Value.AddDays(task.FF).ToOADate(), row),
-                        ArrowLineColor = ScottPlot.Colors.Yellow,
-                        ArrowLineWidth = 5,
-                        //Label = task.Name
+                        X1 = task.p6ES.Value.ToOADate(),
+                        Y1 = row,
+                        X2 = task.p6EF.Value.ToOADate(),
+                        Y2 = row - 0.2,
+                        FillColor = (task.p6Critical) ? ScottPlot.Colors.DarkRed : ScottPlot.Colors.Blue,
+                    };
+                    plot.Plot.Add.Plottable(markerP6);
+
+                    ScottPlot.Plottables.Rectangle markerFF = new()
+                    {
+                        X1 = task.EF.Value.ToOADate(),
+                        Y1 = row,
+                        X2 = task.EF.Value.AddDays(task.FF).ToOADate(),
+                        Y2 = row + 0.5,
+                        FillColor = ScottPlot.Colors.Yellow,
                     };
                     plot.Plot.Add.Plottable(markerFF);
 
-                    ScottPlot.Plottables.Arrow markerTF = new()
+                    ScottPlot.Plottables.Rectangle markerTF = new()
                     {
-                        Base = new Coordinates(task.EF.Value.ToOADate(), row),
-                        Tip = new Coordinates(task.LF.Value.ToOADate(), row),
-                        ArrowLineColor = ScottPlot.Colors.Gray,
-                        ArrowLineWidth = 1,
-                        //Label = task.Name
+                        X1 = task.EF.Value.ToOADate(),
+                        Y1 = row,
+                        X2 = task.LF.Value.AddDays(task.FF).ToOADate(),
+                        Y2 = row + 0.25,
+                        FillColor = ScottPlot.Colors.Gray,
                     };
                     plot.Plot.Add.Plottable(markerTF);
 
@@ -140,6 +153,7 @@ namespace Winfrey
                     Tip = new Coordinates(d2.Value.ToOADate(), i2.Row),
                     //Shape = MarkerShape.OpenDiamond,
                     //Label = "",
+                    ArrowWidth = 1,
                     ArrowLineWidth = 1,
                 };
                 plot.Plot.Add.Plottable(line);

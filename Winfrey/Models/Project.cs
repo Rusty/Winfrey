@@ -78,7 +78,7 @@ namespace Winfrey.Models
             foreach (var task in Tasks.Values.Where(t => !t.BRels.Any())) 
             {
                 task.IsStart = true; // for testing
-                ForwardPass(StartDate, task);
+                ForwardPass(DataDate, task);
             }
             FinishDate = Tasks.Values.Max(t => t.EF);
 
@@ -126,12 +126,12 @@ namespace Winfrey.Models
         DateTime? DateAdd(DateTime? date, double days)
         {
             if (date == null) return null;
-            return date.Value.AddDays(days);
+            return date.Value.AddDays(days/8);
         }
         DateTime? DateSub(DateTime? date, double days)
         {
             if (date == null) return null;
-            return date.Value.AddDays(-days);
+            return date.Value.AddDays(-days/8);
         }
 
         public List<Task> GetTasks()

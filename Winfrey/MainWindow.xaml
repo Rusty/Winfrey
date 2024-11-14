@@ -16,6 +16,7 @@
             <Button Click="Button_Click" Margin="5">Run</Button>
             <ScottPlot:WpfPlot Name="plot" Grid.Row="1"></ScottPlot:WpfPlot>
             <DataGrid Name="grid" Grid.Row="2"></DataGrid>
-            <TextBlock Grid.Row="3"  Name="text" />
+        <GridSplitter Grid.Row="2" Height="5" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+        <TextBlock Grid.Row="3"  Name="text" />
     </Grid>
 </Window>
